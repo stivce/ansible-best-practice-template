@@ -7,7 +7,7 @@ One crucial way to organize your playbook content is Ansible’s “roles” org
 
 ## The top level of the directory would contain files and directories like so:
 
-´´´
+```
 production                # inventory file for production servers
 staging                   # inventory file for staging environment
 
@@ -51,35 +51,31 @@ roles/
     monitoring/           # ""
     fooapp/               # ""
 
-´´´
+```
 
 ### file: production
-´´´
----
+```
 [atlanta_webservers]
 www-atl-1.example.com
 www-atl-2.example.com
-´´´
+```
 ### file: group_vars/all
-´´´
+```
 ---
 ntp: ntp-atlanta.example.com
 backup: backup-atlanta.example.com
-´´´
+```
 
 ### file: host_vars/db-bos-1.example.com
-
-´´´
+```
 ---
 foo_agent_port: 86
 bar_agent_port: 99
-´´´
+```
 
 ### file: site.yml
-´´´
+```
 ---
 - import_playbook: webservers.yml
 - import_playbook: dbservers.yml
-´´´
-
-
+```
