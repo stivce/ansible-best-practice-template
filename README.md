@@ -55,9 +55,29 @@ roles/
 
 ### file: production
 ```
-[atlanta_webservers]
-www-atl-1.example.com
-www-atl-2.example.com
+[main_production_machine]
+[HOSTNAME-HERE] ansible_host=[IP-ADDRESS-HERE] ansible_user=[USER] ansible_connection=ssh ansible_ssh_private_key_file=/[USER]/.ssh/id_rsa ansible_python_interpreter=/usr/bin/python3
+```
+### file: site.yml
+```
+---
+- name: apply common configuration to all nodes
+  hosts: [HOSTNAME-HERE]
+  gather_facts: false
+  become: yes
+  ignore_errors: yes
+  roles:
+         - essential-setup
+         - directory-setup
+```
+### file: ansible.cfg
+```
+[defaults]
+INVENTORY = production
+interpreter_python=auto_silent  
+
+[ssh_connections]
+pipelining = true
 ```
 ### file: group_vars/all
 ```
@@ -73,9 +93,4 @@ foo_agent_port: 86
 bar_agent_port: 99
 ```
 
-### file: site.yml
-```
----
-- import_playbook: webservers.yml
-- import_playbook: dbservers.yml
-```
+
